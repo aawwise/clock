@@ -3,18 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>eBook Style Clock</title>
+  <title>Reader Clock</title>
   <style>
     :root {
-      --bg-light: #fdfaf4;
-      --text-light: #2e2e2e;
-      --card-light: #ffffff;
-      --border-light: #ccc;
+      --bg-light: #fefae0;
+      --text-light: #111111;
 
-      --bg-dark: #1c1c1c;
-      --text-dark: #eaeaea;
-      --card-dark: #2a2a2a;
-      --border-dark: #444;
+      --bg-dark: #000000;
+      --text-dark: #fefae0;
 
       --font-main: 'Georgia', 'Times New Roman', serif;
     }
@@ -30,32 +26,25 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      transition: background-color 0.4s, color 0.4s;
+      transition: background-color 0.3s, color 0.3s;
     }
 
     .clock {
       font-size: 5rem;
-      padding: 30px 60px;
-      background-color: var(--card-light);
-      border: 1px solid var(--border-light);
-      border-radius: 6px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-      text-align: center;
       letter-spacing: 0.05em;
-      transition: background-color 0.4s, color 0.4s, border-color 0.4s;
+      text-align: center;
     }
 
     .toggle-btn {
-      margin-top: 40px;
-      padding: 10px 20px;
+      margin-top: 2rem;
+      padding: 0.5rem 1rem;
       font-size: 1rem;
       font-family: var(--font-main);
+      background: none;
+      border: 1px solid currentColor;
+      color: inherit;
       cursor: pointer;
-      background-color: transparent;
-      border: 1px solid var(--border-light);
-      color: var(--text-light);
-      border-radius: 4px;
-      transition: all 0.3s;
+      transition: background-color 0.2s;
     }
 
     .toggle-btn:hover {
@@ -67,19 +56,8 @@
       color: var(--text-dark);
     }
 
-    body.dark .clock {
-      background-color: var(--card-dark);
-      color: var(--text-dark);
-      border-color: var(--border-dark);
-    }
-
-    body.dark .toggle-btn {
-      color: var(--text-dark);
-      border-color: var(--border-dark);
-    }
-
     body.dark .toggle-btn:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(255, 255, 255, 0.05);
     }
   </style>
 </head>
