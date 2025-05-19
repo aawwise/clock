@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Reader Clock</title>
+  <title>Black & White Clock</title>
   <style>
     :root {
-      --bg-light: #fefae0;
-      --text-light: #111111;
+      --bg-light: #ffffff;
+      --text-light: #000000;
 
       --bg-dark: #000000;
-      --text-dark: #fefae0;
+      --text-dark: #ffffff;
 
-      --font-main: 'Georgia', 'Times New Roman', serif;
+      --font-main: 'Georgia', serif;
     }
 
     body {
       margin: 0;
       padding: 0;
-      font-family: var(--font-main);
       background-color: var(--bg-light);
       color: var(--text-light);
+      font-family: var(--font-main);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -35,19 +35,24 @@
       text-align: center;
     }
 
-    .toggle-btn {
+    .buttons {
       margin-top: 2rem;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn {
       padding: 0.5rem 1rem;
       font-size: 1rem;
-      font-family: var(--font-main);
       background: none;
       border: 1px solid currentColor;
       color: inherit;
+      font-family: var(--font-main);
       cursor: pointer;
       transition: background-color 0.2s;
     }
 
-    .toggle-btn:hover {
+    .btn:hover {
       background-color: rgba(0, 0, 0, 0.05);
     }
 
@@ -56,26 +61,45 @@
       color: var(--text-dark);
     }
 
-    body.dark .toggle-btn:hover {
-      background-color: rgba(255, 255, 255, 0.05);
+    body.dark .btn:hover {
+      background-color: rgba(255, 255, 255, 0.1);
     }
   </style>
 </head>
 <body>
   <div class="clock" id="clock">--:--:--</div>
-  <button class="toggle-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+
+  <div class="buttons">
+    <button class="btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    <button class="btn" onclick="toggleHourFormat()">Toggle 12/24 Hour</button>
+  </div>
 
   <script>
+    let is12Hour = false;
+
     function updateClock() {
       const now = new Date();
-      const hours = now.getHours().toString().padStart(2, '0');
-      const minutes = now.getMinutes().toString().padStart(2, '0');
-      const seconds = now.getSeconds().toString().padStart(2, '0');
-      document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+      let hours = now.getHours();
+      let minutes = now.getMinutes().toString().padStart(2, '0');
+      let seconds = now.getSeconds().toString().padStart(2, '0');
+      let ampm = '';
+
+      if (is12Hour) {
+        ampm = hours >= 12 ? ' PM' : ' AM';
+        hours = hours % 12 || 12; // convert 0 -> 12
+      }
+
+      hours = hours.toString().padStart(2, '0');
+      document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}${is12Hour ? ampm : ''}`;
     }
 
     function toggleDarkMode() {
       document.body.classList.toggle('dark');
+    }
+
+    function toggleHourFormat() {
+      is12Hour = !is12Hour;
+      updateClock(); // refresh clock immediately
     }
 
     setInterval(updateClock, 1000);
