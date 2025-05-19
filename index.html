@@ -5,50 +5,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>eBook Style Clock</title>
   <style>
-    /* Base style for body */
+    :root {
+      --bg-light: #fdfaf4;
+      --text-light: #2e2e2e;
+      --card-light: #ffffff;
+      --border-light: #ccc;
+
+      --bg-dark: #1c1c1c;
+      --text-dark: #eaeaea;
+      --card-dark: #2a2a2a;
+      --border-dark: #444;
+
+      --font-main: 'Georgia', 'Times New Roman', serif;
+    }
+
     body {
       margin: 0;
-      height: 100vh;
+      padding: 0;
+      font-family: var(--font-main);
+      background-color: var(--bg-light);
+      color: var(--text-light);
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      font-family: 'Georgia', 'Serif', 'Times New Roman';
-      background-color: #f4f1ee;
-      color: #2e2e2e;
-      transition: background-color 0.3s, color 0.3s;
+      height: 100vh;
+      transition: background-color 0.4s, color 0.4s;
     }
 
-    /* Clock container */
     .clock {
       font-size: 5rem;
-      padding: 40px 60px;
-      border: 2px solid #ccc;
-      border-radius: 8px;
-      background-color: #ffffff;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      padding: 30px 60px;
+      background-color: var(--card-light);
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
       text-align: center;
       letter-spacing: 0.05em;
-      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+      transition: background-color 0.4s, color 0.4s, border-color 0.4s;
     }
 
-    /* Dark mode */
-    @media (prefers-color-scheme: dark) {
-      body {
-        background-color: #1c1c1c;
-        color: #e6e6e6;
-      }
+    .toggle-btn {
+      margin-top: 40px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      font-family: var(--font-main);
+      cursor: pointer;
+      background-color: transparent;
+      border: 1px solid var(--border-light);
+      color: var(--text-light);
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
 
-      .clock {
-        background-color: #2a2a2a;
-        color: #e6e6e6;
-        border-color: #444;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-      }
+    .toggle-btn:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    body.dark {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    body.dark .clock {
+      background-color: var(--card-dark);
+      color: var(--text-dark);
+      border-color: var(--border-dark);
+    }
+
+    body.dark .toggle-btn {
+      color: var(--text-dark);
+      border-color: var(--border-dark);
+    }
+
+    body.dark .toggle-btn:hover {
+      background-color: rgba(255, 255, 255, 0.1);
     }
   </style>
 </head>
 <body>
   <div class="clock" id="clock">--:--:--</div>
+  <button class="toggle-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
 
   <script>
     function updateClock() {
@@ -59,8 +96,12 @@
       document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
     }
 
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+    }
+
     setInterval(updateClock, 1000);
-    updateClock(); // Initial display
+    updateClock();
   </script>
 </body>
 </html>
